@@ -4,26 +4,32 @@ import 'package:api_revision/api_services.dart';
 import 'package:api_revision/cart_model.dart';
 import 'package:flutter/material.dart';
 
-class CartProvider extends ChangeNotifier
+class NewsProvider extends ChangeNotifier
 {
   bool isLoading = false;
-  late CartModel cartModel;
-  Future<void> fetchData()
-  async {
-    ApiServices apiServices = ApiServices();
-    isLoading = true;
-    notifyListeners();
-    String? data = await apiServices.apiCalling();
-    Map json = jsonDecode(data!);
-    cartModel = CartModel(json);
-    notifyListeners();
-    isLoading = false;
-    notifyListeners();
-  }
+  late NewsModel newsModel;
 
-  CartProvider()
+  // Future<void> fetchData()
+  // async {
+  //   print("-----------fetch data called-------------");
+  //   isLoading = true;
+  //   notifyListeners();
+  //   ApiServices apiServices = ApiServices();
+  //   // String? data = await apiServices.apiCalling();
+  //   print(data);
+  //   Map json = jsonDecode(data!);
+  //   print(json);
+  //   newsModel = NewsModel(json);
+  //   print(newsModel.articles[0].title + "-----------------------------");
+  //   // notifyListeners();
+  //   isLoading = false;
+  //   notifyListeners();
+  // }
+
+  NewsProvider()
   {
-    fetchData();
+    print("--------------------Constructor called----------------");
+    // fetchData();
   }
 
 }

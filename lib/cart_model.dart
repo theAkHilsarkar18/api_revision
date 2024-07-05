@@ -1,72 +1,39 @@
-// {}, class
-// [] -> List<Obj>
-
-class CartModel {
-  late int skip, limit, total;
-  late List<User> carts;
-
-  CartModel._init(this.skip, this.limit, this.total, this.carts); // dynamic
-  factory CartModel(Map m1)
+class NewsModel
+{
+  late List<Article> articles;
+  NewsModel._init({required this.articles});
+  factory NewsModel(Map m1)
   {
-    return CartModel._init(m1['skip'], m1['limit'], m1['total'], (m1['carts'] as List).map((e) => User(e),).toList());
+    return NewsModel._init(articles: (m1['articles'] as List).map((e) => Article(e),).toList());
   }
 
 }
 
-class User {
-  late int id, userId, totalProducts, totalQuantity;
-  late double total, discountedTotal;
-  late List<Product> products;
+class Article
+{
+  late String title,author,urlToImage;
+  late Source source;
 
-  User._init({
-    required this.id,
-    required this.userId,
-    required this.totalProducts,
-    required this.totalQuantity,
-    required this.total,
-    required this.discountedTotal,
-    required this.products,
-  });
+  Article._init({required this.title, required this.author, required this.urlToImage, required this.source});
+  
+  factory Article(Map m1)
+  {
+    return Article._init(title: m1['title'], author: m1['author'] ?? "NULL AUTHOR", urlToImage: m1['urlToImage'] ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrTFrhr_-pYR74jUgOy7IerAoHAX3zPIZZcg&s", source: Source(m1['source']));
+  }
+  
+}
 
-  factory User(Map m1) {
-    return User._init(
-        id: m1['id'],
-        userId: m1['userId'],
-        totalProducts: m1['totalProducts'],
-        totalQuantity: m1['totalQuantity'],
-        total: m1['total'],
-        discountedTotal: m1['discountedTotal'],
-        products: (m1['products'] as List).map((e) => Product(e),).toList(),);
+class Source
+{
+  late String name;
+
+  Source._init({required this.name});
+  
+  factory Source(Map m1)
+  {
+    return Source._init(name: m1['name']);
   }
 }
 
-class Product {
-  late int id, quantity;
-  late double price, total, discountedTotal;
-  late dynamic discountPercentage;
-  late String title, thumbnail;
 
-// alt + insert
-  Product._init(
-      {required this.id,
-      required this.quantity,
-      required this.price,
-      required this.total,
-      required this.discountPercentage,
-      required this.discountedTotal,
-      required this.title,
-      required this.thumbnail});
 
-  factory Product(Map m1) {
-    return Product._init(
-      id: m1['id'],
-      quantity: m1['quantity'],
-      price: m1['price'],
-      total: m1["total"],
-      discountPercentage: m1['discountPercentage'],
-      discountedTotal: m1['discountedTotal'],
-      title: m1['title'],
-      thumbnail: m1['thumbnail'],
-    );
-  }
-}
